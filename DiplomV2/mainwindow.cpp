@@ -12,8 +12,7 @@ MainWindow::MainWindow(QWidget *parent)
     , mMatrix{0, 0}
 {
     ui->setupUi(this);
-
-
+    ui->mainImage->setRenderHints(QPainter::Antialiasing | QPainter::SmoothPixmapTransform);
 }
 
 MainWindow::~MainWindow()

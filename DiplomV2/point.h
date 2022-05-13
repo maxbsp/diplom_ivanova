@@ -37,9 +37,13 @@ public:
      * @param point
      * @return
      */
-    size_t DistanceTo(const Point& point)
+    double DistanceTo(const Point& point)
     {
-        return sqrt((point.mX - mX) * (point.mX - mX) + (point.mY - mY) * (point.mY - mY));
+        double x1 = mX;
+        double x2 = point.mX;
+        double y1 = mY;
+        double y2 = point.mY;
+        return sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
     }
 private:
     size_t mX = 0;
