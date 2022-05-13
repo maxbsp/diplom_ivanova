@@ -10,10 +10,19 @@ CONFIG += c++11
 
 SOURCES += \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    diagram_builder.cpp \
+    employee.cpp \
+    matrix.cpp \
+    point.cpp
 
 HEADERS += \
-    mainwindow.h
+    mainwindow.h \
+    diagram_builder.h \
+    employee.h \
+    forward_declarations.h \
+    matrix.h \
+    point.h
 
 FORMS += \
     mainwindow.ui
