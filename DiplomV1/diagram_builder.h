@@ -11,13 +11,13 @@ class DiagramBuilder
     using FrontsOfEmployes = std::unordered_map<size_t, WaveFront>;
 public:
 
-    Matrix BuildDiagram(const Matrix& matrix, const std::vector<Employee>& employes)
+    static Matrix BuildDiagram(const Matrix& matrix, const std::vector<Employee>& employes)
     {
         Matrix diagramm = matrix;
         size_t filled_pixels = CountFilledPixels(matrix);
         size_t radius = 1;
         std::unordered_map<size_t, WaveFront> fronts = CreateFronts(diagramm, employes);
-        while(filled_pixels < diagramm.Size())
+        while(FrontsLength(fronts) > 0)
         {
             for (const auto& employee : employes)
             {
@@ -29,24 +29,38 @@ public:
         return diagramm;
     }
 
+private:
+    static size_t FrontsLength(const FrontsOfEmployes& fronts)
+    {
+        size_t result = 0;
+        for (const auto& [_,front] : fronts)
+            result += front.size();
+        return result;
+    }
+
     /**
      * @brief Отмечает сотрудника на диаграмме и помещат его во фронт (так со всеми сотрудниками)
      * @param diagramm
      * @param employes
      * @return
      */
-    FrontsOfEmployes CreateFronts(Matrix& diagramm, const std::vector<Employee>& employes)
+    static FrontsOfEmployes CreateFronts(Matrix& diagramm, const std::vector<Employee>& employes)
     {
         std::unordered_map<size_t, WaveFront> fronts;
         for (const auto& employee : employes)
         {
             fronts[employee.Id()].emplace_back(employee.Coordinates());
-            diagramm[employee.Coordinates()] = employee.Id();
+            DrawEmployee(diagramm, employee);
         }
         return fronts;
     }
 
-    size_t CountFilledPixels(const Matrix& matrix)
+    static void DrawEmployee(Matrix& diagramm, const Employee& employee)
+    {
+        diagramm[employee.Coordinates()] = Matrix::WALL;
+    }
+
+    static size_t CountFilledPixels(const Matrix& matrix)
     {
         size_t result = 0;
         for (size_t x = 0; x < matrix.Width(); ++x)
@@ -56,7 +70,7 @@ public:
         return result;
     }
 
-    WaveFront ExtendWave(Matrix& diagramm, const Employee& employee, const WaveFront& front, size_t& filled_pixels, size_t wave_radius)
+    static WaveFront ExtendWave(Matrix& diagramm, const Employee& employee, const WaveFront& front, size_t& filled_pixels, size_t wave_radius)
     {
         WaveFront new_front;
         for (const auto& point : front)
@@ -67,7 +81,7 @@ public:
                 if (!diagramm.Includes(neibourgh))
                     continue;
                 // Если ячейка уже заполнена
-                if (diagramm.IsEmpty(neibourgh))
+                if (!diagramm.IsEmpty(neibourgh))
                     continue;
                 // Если не попадаем в радиус
                 if (employee.Coordinates().DistanceTo(neibourgh) > wave_radius)

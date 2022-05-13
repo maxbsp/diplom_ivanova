@@ -13,8 +13,13 @@ public:
         Matrix result{static_cast<size_t>(image.width()), static_cast<size_t>(image.height())};
         for (int x = 0; x < image.width(); ++x)
             for (int y = 0; y < image.height(); ++y)
+            {
+                Point point{static_cast<size_t>(x), static_cast<size_t>(y)};
                 if (qGray(image.pixel(x, y)) < threshold)
-                    result[Point{static_cast<size_t>(x), static_cast<size_t>(y)}] = Matrix::WALL;
+                    result[point] = Matrix::WALL;
+                else
+                    result[point] = Matrix::EMPTY;
+            }
         return result;
     }
 

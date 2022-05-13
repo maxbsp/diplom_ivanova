@@ -54,7 +54,7 @@ public:
 
     size_t Height() const
     {
-        return mWidth;
+        return mHeight;
     }
 
 private:

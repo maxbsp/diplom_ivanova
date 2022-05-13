@@ -6,6 +6,11 @@
 class Employee
 {
 public:
+    Employee(size_t id, const Point& coordinates)
+        :mId{id}, mCoordinates{coordinates}
+    {
+
+    }
     // координаты сотрудника
     Point Coordinates() const
     {
