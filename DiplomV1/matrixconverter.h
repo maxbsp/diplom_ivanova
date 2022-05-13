@@ -4,6 +4,8 @@
 #include <QRgb>
 #include <QColor>
 #include <vector>
+#include <employee.h>
+#include <forward_declarations.h>
 
 class MatrixConverter
 {
@@ -23,10 +25,9 @@ public:
         return result;
     }
 
-    static QImage ToImage(const Matrix& matrix)
+    static QImage ToImage(const Matrix& matrix, const Employes& employes)
     {
         QImage result{static_cast<int>(matrix.Width()), static_cast<int>(matrix.Height()), QImage::Format_RGB32};
-        std::vector<QColor> colors{"red", "green", "blue", "yellow"};
         for (size_t x = 0; x < matrix.Width(); ++x)
             for (size_t y = 0; y < matrix.Height(); ++y)
             {
@@ -36,7 +37,7 @@ public:
                 else if (matrix.IsWall(point))
                     result.setPixel(x, y, QColor{"black"}.rgb());
                 else
-                    result.setPixel(x, y, colors[matrix[point]].rgb());
+                    result.setPixel(x, y, employes[matrix[point]].Color());
             }
         return result;
     }

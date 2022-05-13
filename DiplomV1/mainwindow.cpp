@@ -51,7 +51,7 @@ void MainWindow::on_pushButton_3_clicked()
 
 void MainWindow::DrawMatrix()
 {
-    const auto& new_image = MatrixConverter::ToImage(mMatrix);
+    const auto& new_image = MatrixConverter::ToImage(mMatrix, mEmployes);
     mScene->addPixmap(QPixmap::fromImage(new_image));
     mScene->setSceneRect(new_image.rect());
     ui->mainImage->setScene(mScene);
