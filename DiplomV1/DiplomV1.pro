@@ -14,6 +14,7 @@ SOURCES += \
     diagram_builder.cpp \
     employee.cpp \
     matrix.cpp \
+    matrixconverter.cpp \
     point.cpp
 
 HEADERS += \
@@ -22,6 +23,7 @@ HEADERS += \
     employee.h \
     forward_declarations.h \
     matrix.h \
+    matrixconverter.h \
     point.h
 
 FORMS += \

@@ -4,9 +4,9 @@
 
 class Matrix
 {
+public:
     static constexpr int EMPTY = -2;    //-2 - не закрашенная область
     static constexpr int WALL = -1;     //-1 - препятствие на плане
-public:
     Matrix(size_t width, size_t height)
         : mWidth{width}, mHeight{height}, mData(width * height)
     {
