@@ -33,6 +33,6 @@ private:
     QTimer mTimer;
     size_t mTime = 0;
 
-    void DrawMatrix();
+    void DrawMatrix(const Matrix& matrix);
 };
 #endif // MAINWINDOW_H

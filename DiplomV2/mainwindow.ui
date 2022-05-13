@@ -41,11 +41,22 @@
      </layout>
     </item>
     <item>
-     <widget class="QLabel" name="lblTime">
-      <property name="text">
-       <string>Текущее время:</string>
-      </property>
-     </widget>
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <item>
+       <widget class="QLabel" name="lblTime">
+        <property name="text">
+         <string>Текущее время:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="lblBuildingTime">
+        <property name="text">
+         <string>Время построения диаграммы:</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </item>
     <item>
      <widget class="QGraphicsView" name="mainImage"/>
