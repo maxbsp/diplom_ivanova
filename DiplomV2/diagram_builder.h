@@ -56,7 +56,10 @@ private:
 
     static void DrawEmployee(Matrix& diagramm, const Employee& employee, size_t time)
     {
-        diagramm[employee.Coordinates(time)] = Matrix::WALL;
+        const auto& location = employee.Coordinates(time);
+        // Рисуем сотрудника, если он не вышел за пределы плана помещения.
+        if (diagramm.Includes(location))
+            diagramm[location] = Matrix::WALL;
     }
 
     static WaveFront ExtendWave(Matrix& diagramm, const Employee& employee, const WaveFront& front, size_t wave_radius, size_t time)
