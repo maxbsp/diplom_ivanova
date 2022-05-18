@@ -6,6 +6,7 @@
 #include <vector>
 #include <employee.h>
 #include <forward_declarations.h>
+#include <QPainter>
 
 class MatrixConverter
 {
@@ -25,7 +26,7 @@ public:
         return result;
     }
 
-    static QImage ToImage(const Matrix& matrix, const Employes& employes)
+    static QImage ToImage(const Matrix& matrix, const Employes& employes, size_t time)
     {
         QImage result{static_cast<int>(matrix.Width()), static_cast<int>(matrix.Height()), QImage::Format_RGB32};
         for (size_t x = 0; x < matrix.Width(); ++x)
@@ -39,6 +40,15 @@ public:
                 else
                     result.setPixel(x, y, employes[matrix[point]].Color());
             }
+
+        QPainter painter{&result};
+        painter.setBrush(QBrush{QColor{"black"}});
+        for (const auto& employee : employes)
+        {
+            const auto& coords = employee.Coordinates(time);
+            QPointF center = QPointF{static_cast<qreal>(coords.X()), static_cast<qreal>(coords.Y())};
+            painter.drawEllipse(center, 5, 5);
+        }
         return result;
     }
 };

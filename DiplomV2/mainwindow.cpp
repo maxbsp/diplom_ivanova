@@ -47,15 +47,15 @@ void MainWindow::on_pushButton_2_clicked()
 
 void MainWindow::on_pushButton_3_clicked()
 {
-    mTimer.setInterval(100);
+    mTimer.setInterval(1000);
     connect(&mTimer, &QTimer::timeout, this, [this](){
         ++mTime;
         std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
         const auto& diagramm = DiagramBuilder::BuildDiagram(mMatrix, mEmployes, mTime);
         std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
         ui->lblTime->setText("Текущее время: " + QString::number(mTime));
-        const auto& building_time = QString::number(std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count());
-        ui->lblBuildingTime->setText("Время построения диаграммы: " + building_time + " µs");
+        const auto& building_time = QString::number(std::chrono::duration_cast<std::chrono::milliseconds>(end - begin).count());
+        ui->lblBuildingTime->setText("Время построения диаграммы: " + building_time + " ms");
         DrawMatrix(diagramm);
     });
     mTimer.start();
@@ -64,7 +64,7 @@ void MainWindow::on_pushButton_3_clicked()
 void MainWindow::DrawMatrix(const Matrix& matrix)
 {
     mScene->clear();
-    const auto& new_image = MatrixConverter::ToImage(matrix, mEmployes);
+    const auto& new_image = MatrixConverter::ToImage(matrix, mEmployes, mTime);
     mScene->addPixmap(QPixmap::fromImage(new_image));
     mScene->setSceneRect(new_image.rect());
     ui->mainImage->setScene(mScene);
