@@ -7,55 +7,25 @@ class Matrix
 public:
     static constexpr int EMPTY = -2;    //-2 - не закрашенная область
     static constexpr int WALL = -1;     //-1 - препятствие на плане
-    Matrix(size_t width, size_t height)
-        : mWidth{width}, mHeight{height}, mData(width * height)
-    {
-    }
+    Matrix(size_t width, size_t height);
 
-    int Value(const Point& p) const
-    {
-        return mData[mWidth * p.Y() + p.X()];
-    }
+    int Value(const Point& p) const;
 
-    int operator[](const Point& p) const
-    {
-        return Value(p);
-    }
+    int operator[](const Point& p) const;
 
-    int& operator[](const Point& p)
-    {
-        return mData[mWidth * p.Y() + p.X()];
-    }
+    int& operator[](const Point& p);
 
-    bool IsEmpty(const Point& p) const
-    {
-        return Value(p) == EMPTY;
-    }
+    bool IsEmpty(const Point& p) const;
 
-    bool IsWall(const Point& p) const
-    {
-        return Value(p) == WALL;
-    }
+    bool IsWall(const Point& p) const;
 
-    bool Includes(const Point& p) const
-    {
-        return p.X() >= 0 && p.X() < mWidth && p.Y() >= 0 && p.Y() < mHeight;
-    }
+    bool Includes(const Point& p) const;
 
-    size_t Size() const
-    {
-        return mData.size();
-    }
+    size_t Size() const;
 
-    size_t Width() const
-    {
-        return mWidth;
-    }
+    size_t Width() const;
 
-    size_t Height() const
-    {
-        return mHeight;
-    }
+    size_t Height() const;
 
 private:
     size_t mWidth = 0;

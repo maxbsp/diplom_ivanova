@@ -14,50 +14,17 @@ public:
         mColor = qRgb(QRandomGenerator::global()->generate(), QRandomGenerator::global()->generate(), QRandomGenerator::global()->generate());
     }
     // координаты сотрудника
-    Point Coordinates(size_t current_time) const
-    {
-        size_t prev_time = 0;
-        Point prev_point{0, 0};
-        if (mCoordinates.size() == 1)
-            return mCoordinates.at(0);
-        for (const auto& [next_time, next_point] : mCoordinates)
-        {
-            if (current_time > prev_time && current_time < next_time)
-            {
-                size_t x = Approximate(current_time, prev_time, next_time, prev_point.X(), next_point.X());
-                size_t y = Approximate(current_time, prev_time, next_time, prev_point.Y(), next_point.Y());
-                return Point{x, y};
-            }
-            prev_time = next_time;
-            prev_point = next_point;
-        }
-        return prev_point;
-    }
+    Point Coordinates(size_t current_time) const;
 
-    void AddPoint(size_t time, const Point& point)
-    {
-        mCoordinates.emplace(time, point);
-    }
+    void AddPoint(size_t time, const Point& point);
 
-    void SetId(size_t id)
-    {
-        mId = id;
-    }
+    void SetId(size_t id);
 
-    size_t Id() const
-    {
-        return mId;
-    }
+    size_t Id() const;
     // фронт волны для текущего сотрудника
-    WaveFront Front() const
-    {
-        return mFront;
-    }
+    WaveFront Front() const;
 
-    QRgb Color() const
-    {
-        return mColor;
-    }
+    QRgb Color() const;
 
 private:
     size_t mId = 0;
@@ -65,16 +32,5 @@ private:
     WaveFront mFront;
     QRgb mColor;
 
-    static float Approximate(float x_medium, float x1, float x2, float y1, float y2)
-    {
-        /*
-         * dx1 -> dy1
-         * dx2 -> dy2 (?)
-         */
-        float dx1 = x2 - x1;
-        float dx2 = x_medium - x1;
-        float dy1 = y2 - y1;
-        float dy2 = dx2 * dy1 / dx1;
-        return y1 + dy2;
-    }
+    static float Approximate(float x_medium, float x1, float x2, float y1, float y2);
 };
